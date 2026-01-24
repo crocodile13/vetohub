@@ -34,8 +34,8 @@ VetoHub propose des ressources interactives pour explorer les complications opht
 
 ```
 ├── a_propos.php
+├── components_helper.php
 ├── config.php
-├── constants.php
 ├── css/
 │   ├── animations.css
 │   ├── breadcrumb.css
@@ -48,32 +48,27 @@ VetoHub propose des ressources interactives pour explorer les complications opht
 │   └── variables.css
 ├── dysendocrinies/
 │   ├── diabete_sucre/
-│   │   └── index.html
+│   │   └── index.php
 │   ├── hyperadrenocorticisme/
-│   │   └── index.html
+│   │   └── index.php
 │   ├── hyperaldosteronisme/
-│   │   └── index.html
+│   │   └── index.php
 │   ├── hyperthyroidie/
-│   │   └── index.html
+│   │   └── index.php
 │   ├── hypothyroidie/
-│   │   └── index.html
+│   │   ├── chambre_anterieure/
+│   │   │   └── index.php
+│   │   └── index.php
 │   ├── index.php
 │   └── pheochromocytome/
-│       └── index.html
+│       └── index.php
 ├── footer.php
 ├── .gitignore
 ├── header.php
 ├── images/
-│   ├── icones/
-│   │   ├── diabete_sucree.png
-│   │   ├── glande_surrenale.png
-│   │   ├── hormones.png
-│   │   ├── pancreas.png
-│   │   ├── testicules.png
-│   │   ├── thyroide.png
-│   │   └── uterus_ovaires.png
 │   └── illustrations/
 │       ├── cornee_depolie.webp
+│       ├── humeur_aqueuse_lipide.webp
 │       ├── melanose_corneenne.webp
 │       ├── neovascularisation_superficielle.webp
 │       └── oedeme_corneen.webp
@@ -81,25 +76,31 @@ VetoHub propose des ressources interactives pour explorer les complications opht
 ├── lesions_ocuaires/
 │   ├── cornee/
 │   │   ├── arc_corneen_lipidique/
-│   │   │   └── index.html
+│   │   │   └── index.php
 │   │   ├── index.php
 │   │   ├── keratite_corneenne/
 │   │   │   └── index.php
 │   │   ├── keratopathie_lipidique/
-│   │   │   └── index.html
+│   │   │   └── index.php
 │   │   └── ulcere_corneen/
-│   │       └── index.html
+│   │       └── index.php
 │   ├── index.php
 │   ├── nerf_optique/
-│   │   └── index.html
+│   │   └── index.php
 │   ├── retine/
-│   │   └── index.html
+│   │   └── index.php
 │   └── sclere/
-│       └── index.html
+│       └── index.php
 ├── LICENSE
 ├── LICENSE-SVG.md
 ├── mecanismes_physiopathologiques/
-│   └── index.html
+│   ├── hyperglycemie/
+│   │   └── index.php
+│   ├── hyperlipidemie/
+│   │   └── index.php
+│   ├── hypertension_arterielle/
+│   │   └── index.php
+│   └── index.php
 ├── README.md
 ├── remerciments.php
 ├── run-server-linux.sh
@@ -111,7 +112,7 @@ VetoHub propose des ressources interactives pour explorer les complications opht
 │   ├── theme.js
 │   └── utils.js
 ├── se_tester/
-│   └── index.html
+│   └── index.php
 ├── structure_oeil_shema_complet.html
 └── svg/
     └── schema_oeuil.svg
