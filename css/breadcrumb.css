@@ -1,21 +1,21 @@
-/* breadcrumb.css - Navigation fil d'Ariane */
+/* breadcrumb.css - Navigation fil d'Ariane optimisée */
 
 /* Breadcrumb Navigation */
 .breadcrumb-nav {
     position: fixed;
     top: 30px;
     left: 30px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     z-index: 1000;
-    padding: 12px 20px;
+    padding: 4px 10px;
     border-radius: 50px;
     backdrop-filter: blur(15px);
     background: rgba(255, 255, 255, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 500;
     transition: all 0.3s ease;
 }
@@ -26,45 +26,33 @@
 
 /* Double breadcrumb - position alternative */
 .breadcrumb-alt {
-    top: 100px;
+    top: 90px;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-/*.breadcrumb-alt::before {
-    content: "Autre chemin :";
-    font-size: 0.8rem;
-    color: #64748b;
-    margin-right: 8px;
-    font-weight: 600;
-    opacity: 0.8;
-}*/
-
 .breadcrumb-link {
     color: #64748b;
     text-decoration: none;
-    transition: all 0.2s ease;
-    padding: 4px 8px;
-    border-radius: 8px;
+    transition: color 0.2s ease;
+    padding: 0 4px;
+    border-radius: 4px;
 }
 
 .breadcrumb-link:hover {
     color: #6366f1;
-    background: rgba(99, 102, 241, 0.1);
 }
 
 .breadcrumb-separator {
     color: #94a3b8;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     user-select: none;
 }
 
 .breadcrumb-current {
     color: #1e293b;
     font-weight: 600;
-    padding: 4px 8px;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
-    border-radius: 8px;
+    padding: 0 4px;
 }
 
 /* Dark theme adjustments */
@@ -78,22 +66,16 @@ html.dark .breadcrumb-alt {
     border-color: rgba(255, 255, 255, 0.15);
 }
 
-html.dark .breadcrumb-alt::before {
-    color: #94a3b8;
-}
-
 html.dark .breadcrumb-link {
     color: #94a3b8;
 }
 
 html.dark .breadcrumb-link:hover {
     color: #818cf8;
-    background: rgba(129, 140, 248, 0.15);
 }
 
 html.dark .breadcrumb-current {
     color: #e2e8f0;
-    background: linear-gradient(135deg, rgba(129, 140, 248, 0.2), rgba(167, 139, 250, 0.2));
 }
 
 /* Responsive */
@@ -102,18 +84,15 @@ html.dark .breadcrumb-current {
         top: 20px;
         left: 20px;
         right: 80px;
-        font-size: 0.85rem;
-        padding: 10px 16px;
+        font-size: 0.8rem;
+        padding: 3px 8px;
+        gap: 3px;
         flex-wrap: wrap;
     }
     
     .breadcrumb-alt {
-        top: 75px;
-        font-size: 0.8rem;
-        padding: 8px 14px;
-    }
-    
-    .breadcrumb-alt::before {
+        top: 65px;
         font-size: 0.75rem;
+        padding: 3px 8px;
     }
 }
