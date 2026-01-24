@@ -1,0 +1,215 @@
+<!-- Rewritten structure_oeil.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structure de l'Œil - VetoHub</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="structure-page">
+<div class="animated-bg">
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="orb orb-4"></div>
+</div>
+<div class="particles" id="particles"></div>
+<button class="theme-toggle">🌙</button>
+<div class="nav-buttons">
+<button class="nav-button" onclick="navigateTo('index.html')">← Retour</button>
+<button class="nav-button" onclick="navigateTo('index.html')">Menu Principal</button>
+</div>
+<div class="header">
+<h1>Structure de l'Œil</h1>
+<p>Explorez interactivement l'anatomie de l'œil en vétérinaire</p>
+</div>
+<div class="schema-container">
+<div class="svg-container">
+<div class="svg-wrapper" id="eyeSchema"></div>
+</div>
+<div class="info-panel">
+<h2 style="margin-bottom:1.6rem; color:var(--c-retine);">Structures de l'œil</h2>
+<div class="structure-item" data-id="retine">Rétine</div>
+<div class="structure-item" data-id="humeur-vitree">Humeur vitrée (corps vitré)</div>
+<div class="structure-item" data-id="cornee">Cornée</div>
+<div class="structure-item" data-id="nerf-optique">Nerf optique</div>
+<div class="structure-item" data-id="chambre-anterieure">Chambre antérieure / Humeur aqueuse</div>
+<div class="structure-item" data-id="macula">Macula</div>
+<div class="structure-item" data-id="pupille">Pupille</div>
+<div class="structure-item" data-id="choroide">Choroïde</div>
+<div class="structure-item" data-id="iris">Iris</div>
+<div class="structure-item" data-id="muscle-orbiculaire">Muscle orbiculaire</div>
+<div class="structure-item" data-id="corps-ciliaires">Corps ciliaires et Zonule</div>
+<div class="structure-item" data-id="cristallin">Cristallin</div>
+<div class="structure-item" data-id="veine">Veine</div>
+<div class="structure-item" data-id="artere">Artère</div>
+<div class="structure-item" data-id="sclere">Sclère</div>
+<div class="structure-item" data-id="papille">Papille (tête du nerf optique)</div>
+</div>
+</div>
+<div id="tooltip" class="tooltip"></div>
+<div class="footer">
+<p>© 2026 VetoHub - Plateforme éducative vétérinaire</p>
+</div>
+<script>
+function toggleTheme() {
+const html = document.documentElement;
+const button = document.querySelector('.theme-toggle');
+ 
+if (html.classList.contains('light')) {
+html.classList.remove('light');
+html.classList.add('dark');
+localStorage.setItem('theme', 'dark');
+button.textContent = '☀️';
+} else {
+html.classList.remove('dark');
+html.classList.add('light');
+localStorage.setItem('theme', 'light');
+button.textContent = '🌙';
+}
+}
+ 
+function initTheme() {
+const savedTheme = localStorage.getItem('theme');
+const html = document.documentElement;
+const button = document.querySelector('.theme-toggle');
+if (savedTheme === 'dark') {
+html.classList.add('dark');
+html.classList.remove('light');
+button.textContent = '☀️';
+} else if (savedTheme === 'light') {
+html.classList.add('light');
+html.classList.remove('dark');
+button.textContent = '🌙';
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+html.classList.add('dark');
+html.classList.remove('light');
+button.textContent = '☀️';
+} else {
+html.classList.add('light');
+html.classList.remove('dark');
+button.textContent = '🌙';
+}
+}
+ 
+function navigateTo(page) {
+window.location.href = page;
+}
+const structures = {
+"retine": { name: "Rétine", classes: ["cls-1"], color: "var(--c-retine)" },
+"humeur-vitree": { name: "Humeur vitrée (corps vitré)", classes: ["cls-54","cls-37","cls-58","cls-53","cls-27","cls-35","cls-44","cls-10","cls-5"], color: "var(--c-humeur-vitree)" },
+"cornee": { name: "Cornée", classes: ["cls-7"], color: "var(--c-cornee)" },
+"nerf-optique": { name: "Nerf optique", classes: ["cls-9","cls-28","cls-39"], color: "var(--c-nerf-optique)" },
+"chambre-anterieure": { name: "Chambre antérieure / Humeur aqueuse", classes: ["cls-52","cls-57","cls-30","cls-62","cls-47","cls-2","cls-15"], color: "var(--c-chambre-anterieure)" },
+"macula": { name: "Macula", classes: ["cls-24","cls-4","cls-16"], color: "var(--c-macula)" },
+"pupille": { name: "Pupille", classes: ["cls-21"], color: "var(--c-pupille)" },
+"choroide": { name: "Choroïde", classes: ["cls-61","cls-13"], color: "var(--c-choroide)" },
+"iris": { name: "Iris", classes: ["cls-23","cls-31","cls-36","cls-62"], color: "var(--c-iris)" },
+"muscle-orbiculaire": { name: "Muscle orbiculaire", classes: ["cls-29","cls-32","cls-33","cls-49","cls-51","cls-6","cls-43","cls-45","cls-22","cls-19","cls-20"], color: "var(--c-muscle-orbiculaire)" },
+"corps-ciliaires": { name: "Corps ciliaires et Zonule", classes: ["cls-12","cls-18","cls-59","cls-50","cls-41","cls-34","cls-26"], color: "var(--c-corps-ciliaires)" },
+"cristallin": { name: "Cristallin", classes: ["cls-25","cls-42","cls-46","cls-11"], color: "var(--c-cristallin)" },
+"veine": { name: "Veine", classes: ["cls-48"], color: "var(--c-veine)" },
+"artere": { name: "Artère", classes: ["cls-55"], color: "var(--c-artere)" },
+"sclere": { name: "Sclère", classes: ["cls-56"], color: "var(--c-sclere)" },
+"papille": { name: "Papille (tête du nerf optique)", classes: ["cls-40","cls-60"], color: "var(--c-papille)" }
+};
+const tooltip = document.getElementById("tooltip");
+ 
+document.addEventListener('DOMContentLoaded', () => {
+initTheme();
+ 
+document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 25; i++) {
+const particle = document.createElement('div');
+particle.className = 'particle';
+particle.style.left = Math.random() * 100 + '%';
+particle.style.animationDuration = (Math.random() * 12 + 12) + 's';
+particle.style.animationDelay = Math.random() * 6 + 's';
+particlesContainer.appendChild(particle);
+}
+fetch("svg/schema_oeuil.svg")
+.then(res => res.ok ? res.text() : Promise.reject("SVG introuvable"))
+.then(svgText => {
+document.getElementById("eyeSchema").innerHTML = svgText;
+initSchema();
+})
+.catch(err => {
+console.error(err);
+document.getElementById("eyeSchema").innerHTML = "<p style='color:#ef4444;padding:4rem;text-align:center;'>Erreur chargement schéma</p>";
+});
+});
+function initSchema() {
+const svgWrapper = document.querySelector('.svg-wrapper');
+const structureElements = {};
+Object.entries(structures).forEach(([id, data]) => {
+const elements = [];
+data.classes.forEach(cls => {
+document.querySelectorAll(`.${cls}`).forEach(el => {
+el.classList.add("clickable-area");
+el.dataset.structureId = id;
+elements.push(el);
+});
+});
+structureElements[id] = elements;
+});
+const underlying = ['macula', 'papille', 'choroide'];
+underlying.forEach(id => {
+if (structureElements[id]) {
+structureElements[id].forEach(original => {
+const clone = original.cloneNode(true);
+clone.style.fill = 'transparent';
+clone.style.stroke = 'none';
+clone.style.pointerEvents = 'all';
+clone.classList.add("clickable-area");
+clone.dataset.structureId = id;
+original.parentNode.appendChild(clone);
+structureElements[id].push(clone);
+});
+}
+});
+Object.values(structureElements).flat().forEach(el => {
+const id = el.dataset.structureId;
+const group = structureElements[id];
+el.addEventListener("mouseenter", () => {
+tooltip.textContent = structures[id].name;
+const col = getComputedStyle(document.documentElement).getPropertyValue(structures[id].color).trim();
+tooltip.style.background = `linear-gradient(135deg, ${col}cc, rgba(30,41,59,0.97))`;
+tooltip.style.borderColor = `${col}55`;
+tooltip.classList.add("visible");
+const rect = el.getBoundingClientRect();
+tooltip.style.left = `${rect.left + rect.width/2}px`;
+tooltip.style.top = `${rect.top - 65}px`;
+group.forEach(g => g.classList.add("hover-active"));
+svgWrapper.classList.add("dimmed");
+});
+el.addEventListener("mouseleave", () => {
+tooltip.classList.remove("visible");
+group.forEach(g => g.classList.remove("hover-active"));
+svgWrapper.classList.remove("dimmed");
+});
+el.addEventListener("click", () => {
+navigateTo(`detail_${id}.html`);
+});
+});
+document.querySelectorAll(".structure-item").forEach(item => {
+const id = item.dataset.id;
+if (!structures[id]) return;
+item.style.borderLeft = `6px solid ${structures[id].color}`;
+item.addEventListener("mouseenter", () => {
+structureElements[id]?.forEach(el => el.classList.add("hover-active"));
+svgWrapper.classList.add("dimmed");
+});
+item.addEventListener("mouseleave", () => {
+structureElements[id]?.forEach(el => el.classList.remove("hover-active"));
+svgWrapper.classList.remove("dimmed");
+});
+item.addEventListener("click", () => {
+navigateTo(`detail_${id}.html`);
+});
+});
+}
+</script>
+</body>
+</html>

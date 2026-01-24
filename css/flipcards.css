@@ -1,0 +1,186 @@
+/* flipcards.css - Composant flip cards */
+
+/* Base */
+.flip-card {
+    perspective: 1200px;
+    overflow: hidden;
+    padding: 40px;
+    height: 400px;
+}
+
+.text-card {
+    height: auto;
+    min-height: 300px;
+}
+
+.flip-card:hover {
+    transform: translateY(-25px) scale(1.04);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(255, 255, 255, 0.35);
+}
+
+/* Couleurs par section */
+body[class*="section-"] .flip-card {
+    background: rgba(var(--section-color), 0.08);
+    border-color: rgba(var(--section-color), 0.3);
+}
+
+body[class*="section-"] .flip-card::before {
+    background: var(--section-gradient);
+    opacity: 0.15;
+}
+
+body[class*="section-"] .flip-card:hover {
+    background: rgba(var(--section-color), 0.15);
+    border-color: rgb(var(--section-color));
+}
+
+body[class*="section-"] .flip-card .glow {
+    background: rgb(var(--section-color));
+}
+
+/* Cartes spéciales */
+.dysendocrinies-card {
+    background: rgba(55, 65, 81, 0.06) !important;
+    border-color: rgba(55, 65, 81, 0.25) !important;
+}
+
+.dysendocrinies-card::before {
+    background: linear-gradient(135deg, rgba(55,65,81,0.4), rgba(75,85,99,0.4), rgba(107,114,128,0.4)) !important;
+}
+
+.dysendocrinies-card:hover {
+    background: rgba(55, 65, 81, 0.2) !important;
+    border-color: rgb(55, 65, 81) !important;
+}
+
+.dysendocrinies-card .glow {
+    background: rgb(55, 65, 81) !important;
+}
+
+.mecanismes-card {
+    background: rgba(209, 213, 219, 0.15) !important;
+    border-color: rgba(209, 213, 219, 0.4) !important;
+}
+
+.mecanismes-card::before {
+    background: linear-gradient(135deg, rgba(249,250,251,0.4), rgba(243,244,246,0.4), rgba(229,231,235,0.4)) !important;
+}
+
+.mecanismes-card:hover {
+    background: rgba(209, 213, 219, 0.3) !important;
+    border-color: rgb(209, 213, 219) !important;
+}
+
+.mecanismes-card .glow {
+    background: rgb(209, 213, 219) !important;
+}
+
+/* Glow */
+.flip-card .glow {
+    width: 220px;
+    height: 220px;
+    filter: blur(80px);
+    opacity: 0.08;
+}
+
+.flip-card:hover .glow {
+    opacity: 0.3;
+}
+
+/* Flip mechanism */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-xl);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front & Back */
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 25px;
+    overflow-y: auto;
+    word-break: break-word;
+}
+
+.flip-card-front {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.flip-card-front img {
+    max-width: 100%;
+    max-height: 85%;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.flip-card-back {
+    background-color: #e9ecef;
+    transform: rotateY(180deg);
+    font-size: 1.4rem;
+    color: #333;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.text-card .flip-card-back {
+    white-space: normal;
+    text-align: left;
+}
+
+/* Typography */
+.flip-card-front h3,
+.flip-card-back h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.flip-card-front p,
+.flip-card-back p {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.flip-card-back ul {
+    list-style-type: disc;
+    text-align: left;
+    padding-left: 25px;
+    margin-top: 10px;
+}
+
+.flip-card-back li {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .flip-card {
+        height: 350px;
+    }
+    
+    .text-card {
+        min-height: 250px;
+    }
+}

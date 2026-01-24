@@ -1,0 +1,107 @@
+/* schema.css - Styles pour le schéma oculaire interactif */
+
+/* Zones cliquables du SVG */
+.clickable-area {
+    transition: all 0.28s ease;
+    cursor: pointer;
+}
+
+.clickable-area:hover,
+.clickable-area.hover-active {
+    opacity: 0.88;
+    filter: brightness(1.5) saturate(1.5);
+    box-shadow: 0 0 25px 8px var(--hover-glow, transparent);
+}
+
+/* Glow colors par structure */
+.clickable-area[data-structure-id="retine"] { --hover-glow: #6366f166; }
+.clickable-area[data-structure-id="humeur-vitree"] { --hover-glow: #8b5cf666; }
+.clickable-area[data-structure-id="cornee"] { --hover-glow: #ec489966; }
+.clickable-area[data-structure-id="nerf-optique"] { --hover-glow: #f43f5e66; }
+.clickable-area[data-structure-id="chambre-anterieure"] { --hover-glow: #14b8a666; }
+.clickable-area[data-structure-id="macula"] { --hover-glow: #f59e0b66; }
+.clickable-area[data-structure-id="choroide"] { --hover-glow: #7c3aed66; }
+.clickable-area[data-structure-id="iris"] { --hover-glow: #d946ef66; }
+.clickable-area[data-structure-id="cristallin"] { --hover-glow: #eab30866; }
+.clickable-area[data-structure-id="veine"] { --hover-glow: #ef444466; }
+.clickable-area[data-structure-id="artere"] { --hover-glow: #b91c1c66; }
+.clickable-area[data-structure-id="sclere"] { --hover-glow: #9ca3af66; }
+.clickable-area[data-structure-id="papille"] { --hover-glow: #9f123966; }
+
+/* Dimmed state */
+.svg-wrapper.dimmed .clickable-area:not(.hover-active) {
+    filter: saturate(0.5) brightness(0.8);
+    opacity: 0.7;
+    transition: all 0.28s ease;
+}
+
+/* Tooltip - suit le curseur */
+.tooltip {
+    position: fixed;
+    background: rgba(30, 41, 59, 0.97);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+}
+
+.tooltip.visible {
+    opacity: 1;
+}
+
+/* Structure items */
+.structure-item {
+    transition: all 0.22s ease;
+}
+
+.structure-item.highlighted {
+    transform: translateX(8px) scale(1.02);
+    background: rgba(var(--section-color), 0.35) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Structure icon wrapper */
+.structure-icon-wrapper {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+    position: relative;
+}
+
+.structure-icon-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transition: all 0.22s ease;
+}
+
+.structure-icon-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.22s ease;
+}
+
+.structure-item:hover .structure-icon-content,
+.structure-item.highlighted .structure-icon-content {
+    transform: rotate(360deg) scale(1.1);
+}

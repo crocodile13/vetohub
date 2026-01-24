@@ -1,0 +1,44 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE et éditeurs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Fichiers temporaires et logs
+*.log
+*.tmp
+*.temp
+*.cache
+
+# Scripts de développement
+copy_site.sh
+to_www_nginx.sh
+tree.sh
+flaticon_pack_scrapper.sh
+
+# Documentation de développement
+LLM-instruct
+cls_svg_description.txt
+structure.txt
+image_to_webp.md
+
+# Maquettes et ressources de développement
+Maquette_*.pptx
+STRUCTURE.md
+
+# Ressources externes non utilisées
+ressources/
+icones/
+
+# Fichiers de backup
+*.bak
+*~
+*.old

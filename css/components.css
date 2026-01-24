@@ -1,0 +1,427 @@
+/* components.css - Composants UI réutilisables ULTRA-OPTIMISÉ */
+
+/* ========================================
+   MIXINS ET CONFIGURATIONS PARTAGÉES
+======================================== */
+.bubble, .flip-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-slow);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08), inset 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.bubble::before, .flip-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, transparent, transparent);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.15;
+    transition: opacity 0.5s ease;
+}
+
+.bubble:hover::before, .flip-card:hover::before {
+    opacity: 1;
+}
+
+.glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.08;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    top: -50px;
+    right: -50px;
+}
+
+.bubble:hover .glow, .flip-card:hover .glow {
+    opacity: 0.25;
+}
+
+/* ========================================
+   PAGE LAYOUTS
+======================================== */
+.index-page {
+    justify-content: center;
+}
+
+.index-page .header {
+    margin-bottom: 70px;
+}
+
+.index-page .header h1 {
+    font-size: 4.5rem;
+    letter-spacing: -2px;
+}
+
+.index-page .header p {
+    font-size: 1.3rem;
+}
+
+.structure-page .header {
+    margin-top: 120px;
+    margin-bottom: 80px;
+}
+
+.structure-page .header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.structure-page .header p {
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.structure-page .footer {
+    margin-top: 80px;
+}
+
+/* ========================================
+   HEADER & FOOTER
+======================================== */
+.header {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.header h1 {
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 8px rgba(99, 102, 241, 0.15));
+    letter-spacing: -2px;
+    line-height: 1.2;
+}
+
+.header p {
+    font-weight: 400;
+    color: #64748b;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    line-height: 1.6;
+}
+
+.footer {
+    margin-top: 70px;
+    text-align: center;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 1;
+    color: #64748b;
+    font-weight: 400;
+}
+
+/* ========================================
+   THEME TOGGLE
+======================================== */
+.theme-toggle {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.15) rotate(180deg);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   BUBBLES
+======================================== */
+.bubble {
+    padding: 55px 45px;
+}
+
+.bubble:hover {
+    transform: translateY(-25px) scale(1.04);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(255, 255, 255, 0.35);
+}
+
+/* COULEURS PAR SECTION - Utilisation de custom properties pour éviter la répétition */
+body.section-lesions-oculaires {
+    --section-color: 255, 107, 157;
+    --section-gradient: linear-gradient(135deg, rgba(255,107,157,0.3), rgba(255,141,180,0.3), rgba(255,166,201,0.3));
+}
+
+body.section-se-tester {
+    --section-color: 79, 172, 254;
+    --section-gradient: linear-gradient(135deg, rgba(79,172,254,0.3), rgba(111,196,255,0.3), rgba(141,213,255,0.3));
+}
+
+body.section-dysendocrinies {
+    --section-color: 67, 233, 123;
+    --section-gradient: linear-gradient(135deg, rgba(67,233,123,0.3), rgba(95,240,149,0.3), rgba(124,245,171,0.3));
+}
+
+body.section-mecanismes {
+    --section-color: 234, 179, 8;
+    --section-gradient: linear-gradient(135deg, rgba(234,179,8,0.3), rgba(250,204,21,0.3), rgba(253,224,71,0.3));
+}
+
+/* Application des couleurs */
+body[class*="section-"] .bubble {
+    background: rgba(var(--section-color), 0.08);
+    border-color: rgba(var(--section-color), 0.25);
+}
+
+body[class*="section-"] .bubble::before {
+    background: var(--section-gradient);
+}
+
+body[class*="section-"] .bubble:hover {
+    background: rgba(var(--section-color), 0.15);
+    border-color: rgb(var(--section-color));
+}
+
+body[class*="section-"] .bubble .glow {
+    background: rgb(var(--section-color));
+}
+
+/* Page d'accueil - couleurs individuelles par bubble */
+.index-page .bubble:nth-child(1) { --section-color: 255, 107, 157; --section-gradient: linear-gradient(135deg, rgba(255,107,157,0.3), rgba(255,141,180,0.3), rgba(255,166,201,0.3)); }
+.index-page .bubble:nth-child(2) { --section-color: 79, 172, 254; --section-gradient: linear-gradient(135deg, rgba(79,172,254,0.3), rgba(111,196,255,0.3), rgba(141,213,255,0.3)); }
+.index-page .bubble:nth-child(3) { --section-color: 67, 233, 123; --section-gradient: linear-gradient(135deg, rgba(67,233,123,0.3), rgba(95,240,149,0.3), rgba(124,245,171,0.3)); }
+.index-page .bubble:nth-child(4) { --section-color: 234, 179, 8; --section-gradient: linear-gradient(135deg, rgba(234,179,8,0.3), rgba(250,204,21,0.3), rgba(253,224,71,0.3)); }
+
+/* Application des couleurs pour l'index */
+.index-page .bubble {
+    background: rgba(var(--section-color), 0.08);
+    border-color: rgba(var(--section-color), 0.25);
+}
+
+.index-page .bubble::before {
+    background: var(--section-gradient);
+}
+
+.index-page .bubble:hover {
+    background: rgba(var(--section-color), 0.15);
+    border-color: rgb(var(--section-color));
+}
+
+.index-page .bubble .glow {
+    background: rgb(var(--section-color));
+}
+
+/* ========================================
+   ICON WRAPPER
+======================================== */
+.icon-wrapper {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 35px;
+    border-radius: 50%;
+    position: relative;
+    transition: all var(--transition-medium);
+}
+
+.icon-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.icon-content {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background: linear-gradient(135deg, rgb(var(--section-color)) 0%, rgba(var(--section-color), 0.8) 100%);
+}
+
+.bubble .icon-content img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+.bubble:hover .icon-content {
+    transform: rotate(360deg) scale(1.15);
+}
+
+.bubble:hover .icon-shadow {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ========================================
+   BUBBLE TITLE & DESCRIPTION
+======================================== */
+.bubble-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: #475569;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+    min-height: 2.6rem;
+}
+
+.bubble-description {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-15px);
+    background: rgba(30, 41, 59, 0.97);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-weight: 400;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    transition-delay: 0.5s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    width: max-content;
+    max-width: 300px;
+    text-align: center;
+    line-height: 1.7;
+    pointer-events: none;
+}
+
+.bubble:hover .bubble-description {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.bubble:not(:hover) .bubble-description {
+    transition-delay: 0s;
+}
+
+.bubble-description::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-top-color: rgba(30, 41, 59, 0.97);
+}
+
+/* ========================================
+   STRUCTURE ITEMS
+======================================== */
+.structure-item {
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    color: #1e293b;
+    border: 1px solid transparent;
+    position: relative;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.structure-item:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background: rgba(var(--section-color), 0.25);
+    border-color: rgb(var(--section-color));
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 768px) {
+    .index-page .header h1 {
+        font-size: 3rem;
+    }
+    
+    .index-page .header p {
+        font-size: 1.1rem;
+    }
+    
+    .structure-page .header {
+        margin-top: 100px;
+        margin-bottom: 60px;
+    }
+    
+    .structure-page .header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .bubble {
+        padding: 45px 35px;
+    }
+    
+    .icon-wrapper {
+        margin-bottom: 28px;
+    }
+    
+    .bubble-title {
+        font-size: 1.75rem;
+        min-height: 2.3rem;
+    }
+    
+    .theme-toggle {
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Ajoutez à la fin de css/components.css */
+
+/* ========================================
+   ICON LETTER FALLBACK
+======================================== */
+.icon-letter-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.bubble .icon-content img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}

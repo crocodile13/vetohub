@@ -1,0 +1,42 @@
+/* variables.css - Variables CSS globales */
+
+:root {
+    /* Couleurs des structures oculaires */
+    --c-retine: #6366f1;
+    --c-humeur-vitree: #8b5cf6;
+    --c-cornee: #ec4899;
+    --c-nerf-optique: #f43f5e;
+    --c-chambre-anterieure: #14b8a6;
+    --c-macula: #f59e0b;
+    --c-pupille: #000000;
+    --c-choroide: #7c3aed;
+    --c-iris: #d946ef;
+    --c-muscle-orbiculaire: #64748b;
+    --c-corps-ciliaires: #06b6d4;
+    --c-cristallin: #eab308;
+    --c-veine: #ef4444;
+    --c-artere: #b91c1c;
+    --c-sclere: #6b7280;
+    --c-papille: #9f1239;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --transition-slow: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Espacements */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Gap pour les cartes */
+    --gap-cards: 40px;
+    
+    /* Border radius */
+    --radius-sm: 14px;
+    --radius-md: 24px;
+    --radius-lg: 35px;
+    --radius-xl: 40px;
+}
