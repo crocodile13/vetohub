@@ -24,6 +24,22 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
+/* Double breadcrumb - position alternative */
+.breadcrumb-alt {
+    top: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/*.breadcrumb-alt::before {
+    content: "Autre chemin :";
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-right: 8px;
+    font-weight: 600;
+    opacity: 0.8;
+}*/
+
 .breadcrumb-link {
     color: #64748b;
     text-decoration: none;
@@ -57,6 +73,15 @@ html.dark .breadcrumb-nav {
     border-color: rgba(255, 255, 255, 0.2);
 }
 
+html.dark .breadcrumb-alt {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+html.dark .breadcrumb-alt::before {
+    color: #94a3b8;
+}
+
 html.dark .breadcrumb-link {
     color: #94a3b8;
 }
@@ -80,5 +105,15 @@ html.dark .breadcrumb-current {
         font-size: 0.85rem;
         padding: 10px 16px;
         flex-wrap: wrap;
+    }
+    
+    .breadcrumb-alt {
+        top: 75px;
+        font-size: 0.8rem;
+        padding: 8px 14px;
+    }
+    
+    .breadcrumb-alt::before {
+        font-size: 0.75rem;
     }
 }

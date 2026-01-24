@@ -8,6 +8,7 @@ require_once __DIR__ . '/config.php';
 $page_title = $page_title ?? APP_NAME;
 $body_class = $body_class ?? '';
 $breadcrumbs = $breadcrumbs ?? [];
+$breadcrumbs_alt = $breadcrumbs_alt ?? [];
 $load_schema = $load_schema ?? false;
 ?>
 <!DOCTYPE html>
@@ -80,10 +81,27 @@ $load_schema = $load_schema ?? false;
 <!-- Theme toggle -->
 <button class="theme-toggle" aria-label="Changer le thème">🌙</button>
 
-<!-- Breadcrumb -->
+<!-- Breadcrumb principal -->
 <?php if (!empty($breadcrumbs)): ?>
 <nav class="breadcrumb-nav">
     <?php foreach ($breadcrumbs as $i => $crumb): 
+        if ($i > 0) echo '<span class="breadcrumb-separator">›</span>';
+        
+        if (isset($crumb['link'])): ?>
+            <a href="<?= htmlspecialchars($crumb['link']) ?>" class="breadcrumb-link">
+                <?= $crumb['title'] === 'Accueil' ? '🏠' : htmlspecialchars($crumb['title']) ?>
+            </a>
+        <?php else: ?>
+            <span class="breadcrumb-current"><?= htmlspecialchars($crumb['title']) ?></span>
+        <?php endif; 
+    endforeach; ?>
+</nav>
+<?php endif; ?>
+
+<!-- Breadcrumb alternatif -->
+<?php if (!empty($breadcrumbs_alt)): ?>
+<nav class="breadcrumb-nav breadcrumb-alt">
+    <?php foreach ($breadcrumbs_alt as $i => $crumb): 
         if ($i > 0) echo '<span class="breadcrumb-separator">›</span>';
         
         if (isset($crumb['link'])): ?>

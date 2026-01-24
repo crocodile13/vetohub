@@ -22,7 +22,7 @@ const SCHEMA_CONFIG = {
         "sclere": { name: "Sclère", classes: ["cls-56"], color: "--c-sclere" },
         "papille": { name: "Papille (tête du nerf optique)", classes: ["cls-40","cls-60"], color: "--c-papille" }
     },
-    navigationStructures: ['cornee', 'retine', 'nerf-optique', 'sclere'],
+    navigationStructures: ['cornee', 'retine', 'nerf-optique', 'sclere', 'chambre-anterieure'],
     underlyingStructures: ['macula', 'papille', 'choroide']
 };
 
@@ -36,6 +36,7 @@ class EyeSchema {
         this.tooltip = null;
         this.currentMouseX = 0;
         this.currentMouseY = 0;
+        this.customLinks = {};
     }
 
     async load() {
@@ -68,10 +69,21 @@ class EyeSchema {
 
         this.collectElements();
         this.cloneUnderlyingStructures();
+        this.loadCustomLinks();
         this.attachEvents();
         this.initSidePanel();
 
         console.log(`✓ ${document.querySelectorAll('.clickable-area').length} zones interactives`);
+    }
+
+    loadCustomLinks() {
+        document.querySelectorAll('.structure-item[data-custom-link]').forEach(item => {
+            const id = item.dataset.id;
+            const link = item.dataset.customLink;
+            if (id && link) {
+                this.customLinks[id] = link;
+            }
+        });
     }
 
     collectElements() {
@@ -178,7 +190,14 @@ class EyeSchema {
     }
 
     navigate(id) {
-        const directory = id === 'nerf-optique' ? 'nerf_optique' : id;
+        // Vérifier s'il existe un lien personnalisé
+        if (this.customLinks[id]) {
+            window.location.href = this.customLinks[id];
+            return;
+        }
+        
+        // Navigation par défaut
+        const directory = id === 'nerf-optique' ? 'nerf_optique' : id.replace('-', '_');
         window.navigateTo(`${directory}/index.php`);
     }
 

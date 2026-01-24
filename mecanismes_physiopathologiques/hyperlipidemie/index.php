@@ -17,8 +17,8 @@ require_once __DIR__ . '/../../components_helper.php';
 
 // Configuration des structures affectées par l'hyperlipidémie
 $structures = [
-    ['id' => 'chambre-anterieure', 'label' => 'Chambre antérieure'],
-    ['id' => 'cornee', 'label' => 'Cornée'],
+    ['id' => 'chambre-anterieure', 'label' => 'Chambre antérieure', 'link' => '../../dysendocrinies/hypothyroidie/chambre_anterieure/index.php?from=mecanismes'],
+    ['id' => 'cornee', 'label' => 'Cornée', 'link' => '../../dysendocrinies/hypothyroidie/chambre_anterieure/index.php?from=mecanismes'],
     ['id' => 'retine', 'label' => 'Rétine']
 ];
 ?>
@@ -36,7 +36,11 @@ $structures = [
     <div class="info-panel">
         <h2 style="margin-bottom:1.6rem; color:#d1d5db;">Structures affectées</h2>
         <?php foreach ($structures as $structure): ?>
-            <div class="structure-item" data-id="<?= $structure['id'] ?>">
+            <div class="structure-item" 
+                 data-id="<?= $structure['id'] ?>"
+                 <?php if (isset($structure['link'])): ?>
+                 data-custom-link="<?= htmlspecialchars($structure['link']) ?>"
+                 <?php endif; ?>>
                 <?= $structure['label'] ?>
             </div>
         <?php endforeach; ?>
