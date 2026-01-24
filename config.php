@@ -73,6 +73,7 @@ define('IMG_ILLUSTRATIONS', [
     'melanose_corneenne' => BASE_URL . 'images/illustrations/melanose_corneenne.webp',
     'neovascularisation' => BASE_URL . 'images/illustrations/neovascularisation_superficielle.webp',
     'oedeme_corneen' => BASE_URL . 'images/illustrations/oedeme_corneen.webp',
+    'humeur_aqueuse_lipide' => BASE_URL . 'images/illustrations/humeur_aqueuse_lipide.png',
 ]);
 
 /**
