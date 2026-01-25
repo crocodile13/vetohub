@@ -1,4 +1,4 @@
-/* flipcards.css - Composant flip cards */
+/* flipcards.css - Composant flip cards OPTIMISÉ */
 
 /* Base */
 .flip-card {
@@ -13,70 +13,6 @@
     min-height: 300px;
 }
 
-.flip-card:hover {
-    transform: translateY(-25px) scale(1.04);
-    border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(255, 255, 255, 0.35);
-}
-
-/* Couleurs par section */
-body[class*="section-"] .flip-card {
-    background: rgba(var(--section-color), 0.08);
-    border-color: rgba(var(--section-color), 0.3);
-}
-
-body[class*="section-"] .flip-card::before {
-    background: var(--section-gradient);
-    opacity: 0.15;
-}
-
-body[class*="section-"] .flip-card:hover {
-    background: rgba(var(--section-color), 0.15);
-    border-color: rgb(var(--section-color));
-}
-
-body[class*="section-"] .flip-card .glow {
-    background: rgb(var(--section-color));
-}
-
-/* Cartes spéciales */
-.dysendocrinies-card {
-    background: rgba(55, 65, 81, 0.06) !important;
-    border-color: rgba(55, 65, 81, 0.25) !important;
-}
-
-.dysendocrinies-card::before {
-    background: linear-gradient(135deg, rgba(55,65,81,0.4), rgba(75,85,99,0.4), rgba(107,114,128,0.4)) !important;
-}
-
-.dysendocrinies-card:hover {
-    background: rgba(55, 65, 81, 0.2) !important;
-    border-color: rgb(55, 65, 81) !important;
-}
-
-.dysendocrinies-card .glow {
-    background: rgb(55, 65, 81) !important;
-}
-
-.mecanismes-card {
-    background: rgba(209, 213, 219, 0.15) !important;
-    border-color: rgba(209, 213, 219, 0.4) !important;
-}
-
-.mecanismes-card::before {
-    background: linear-gradient(135deg, rgba(249,250,251,0.4), rgba(243,244,246,0.4), rgba(229,231,235,0.4)) !important;
-}
-
-.mecanismes-card:hover {
-    background: rgba(209, 213, 219, 0.3) !important;
-    border-color: rgb(209, 213, 219) !important;
-}
-
-.mecanismes-card .glow {
-    background: rgb(209, 213, 219) !important;
-}
-
-/* Glow */
 .flip-card .glow {
     width: 220px;
     height: 220px;
@@ -146,6 +82,37 @@ body[class*="section-"] .flip-card .glow {
 .text-card .flip-card-back {
     white-space: normal;
     text-align: left;
+}
+
+/* Dark theme - OPAQUE */
+html.dark .flip-card-front,
+html.dark .dysendocrinies-card .flip-card-front,
+html.dark .mecanismes-card .flip-card-front {
+    background-color: #2d3748 !important;
+    color: #f1f5f9 !important;
+}
+
+html.dark .dysendocrinies-card .flip-card-front {
+    background-color: #374151 !important;
+}
+
+html.dark .flip-card-back,
+html.dark .dysendocrinies-card .flip-card-back {
+    background-color: #343e50 !important;
+    color: #f1f5f9 !important;
+}
+
+html.dark .dysendocrinies-card .flip-card-back {
+    background-color: #374151 !important;
+}
+
+html.dark .mecanismes-card .flip-card-back {
+    background-color: #343e50 !important;
+}
+
+html.dark .flip-card-front *,
+html.dark .flip-card-back * {
+    color: #f1f5f9 !important;
 }
 
 /* Typography */

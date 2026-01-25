@@ -1,8 +1,5 @@
-/* schema.js - Gestion du schéma oculaire interactif ULTRA-OPTIMISÉ */
+/* schema.js - Navigation contextuelle intelligente et sécurisée */
 
-/**
- * Configuration centralisée des structures oculaires
- */
 const SCHEMA_CONFIG = {
     structures: {
         "retine": { name: "Rétine", classes: ["cls-1"], color: "--c-retine" },
@@ -23,20 +20,77 @@ const SCHEMA_CONFIG = {
         "papille": { name: "Papille (tête du nerf optique)", classes: ["cls-40","cls-60"], color: "--c-papille" }
     },
     navigationStructures: ['cornee', 'retine', 'nerf-optique', 'sclere', 'chambre-anterieure'],
-    underlyingStructures: ['macula', 'papille', 'choroide']
+    underlyingStructures: ['macula', 'papille', 'choroide'],
+    
+    // Routes contextuelles : mapping structure → page par contexte
+    contextualRoutes: {
+        'chambre-anterieure': {
+            'dysendocrinies': 'dysendocrinies/hypothyroidie/chambre_anterieure/index.php',
+            'mecanismes': 'dysendocrinies/hypothyroidie/chambre_anterieure/index.php',
+            'default': 'dysendocrinies/hypothyroidie/chambre_anterieure/index.php'
+        },
+        'cornee': {
+            'lesions': 'lesions_ocuaires/cornee/index.php',
+            'default': 'cornee/index.php'
+        },
+        'retine': {
+            'lesions': 'lesions_ocuaires/retine/index.php',
+            'default': 'retine/index.php'
+        },
+        'nerf-optique': {
+            'lesions': 'lesions_ocuaires/nerf_optique/index.php',
+            'default': 'nerf_optique/index.php'
+        },
+        'sclere': {
+            'lesions': 'lesions_ocuaires/sclere/index.php',
+            'default': 'sclere/index.php'
+        }
+    }
 };
 
-/**
- * Classe principale pour gérer le schéma
- */
 class EyeSchema {
     constructor() {
         this.elements = {};
         this.svgWrapper = null;
         this.tooltip = null;
-        this.currentMouseX = 0;
-        this.currentMouseY = 0;
-        this.customLinks = {};
+        this.mousePos = { x: 0, y: 0 };
+        this.currentContext = this.detectContext();
+    }
+
+    /**
+     * Détection robuste du contexte depuis plusieurs sources
+     */
+    detectContext() {
+        // 1. Contexte passé par PHP (priorité max)
+        if (window.CURRENT_CONTEXT && window.CURRENT_CONTEXT.trim()) {
+            return window.CURRENT_CONTEXT.trim();
+        }
+        
+        // 2. Paramètre URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromParam = urlParams.get('from');
+        if (fromParam && this.isValidContext(fromParam)) {
+            return fromParam;
+        }
+        
+        // 3. Déduire du chemin actuel
+        const path = window.location.pathname;
+        const validContexts = ['dysendocrinies', 'mecanismes', 'lesions', 'se_tester'];
+        for (const ctx of validContexts) {
+            if (path.includes(ctx)) {
+                return ctx;
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * Valide qu'un contexte est légitime
+     */
+    isValidContext(context) {
+        const valid = ['dysendocrinies', 'mecanismes', 'lesions', 'se_tester'];
+        return valid.includes(context);
     }
 
     async load() {
@@ -44,7 +98,7 @@ class EyeSchema {
         this.tooltip = document.getElementById('tooltip');
         
         if (!wrapper || !this.tooltip) {
-            console.warn('Éléments requis manquants');
+            console.warn('⚠️ Éléments requis manquants');
             return;
         }
 
@@ -56,34 +110,28 @@ class EyeSchema {
             
             wrapper.innerHTML = await response.text();
             this.init();
-            console.log('✓ Schéma chargé et initialisé');
+            console.log('✅ Schéma chargé');
         } catch (err) {
-            console.error('✗ Erreur chargement SVG:', err);
-            wrapper.innerHTML = `<p style='color:#ef4444;padding:2rem;text-align:center;'>Erreur de chargement du schéma</p>`;
+            console.error('❌ Erreur chargement schéma:', err);
+            wrapper.innerHTML = `<p style='color:#ef4444;padding:2rem;text-align:center;'>⚠️ Erreur de chargement du schéma</p>`;
         }
     }
 
     init() {
         this.svgWrapper = document.querySelector('.svg-wrapper');
-        if (!this.svgWrapper) return;
+        if (!this.svgWrapper) {
+            console.error('❌ SVG wrapper introuvable');
+            return;
+        }
 
         this.collectElements();
         this.cloneUnderlyingStructures();
-        this.loadCustomLinks();
         this.attachEvents();
         this.initSidePanel();
 
-        console.log(`✓ ${document.querySelectorAll('.clickable-area').length} zones interactives`);
-    }
-
-    loadCustomLinks() {
-        document.querySelectorAll('.structure-item[data-custom-link]').forEach(item => {
-            const id = item.dataset.id;
-            const link = item.dataset.customLink;
-            if (id && link) {
-                this.customLinks[id] = link;
-            }
-        });
+        const areaCount = document.querySelectorAll('.clickable-area').length;
+        console.log(`✅ ${areaCount} zones interactives`);
+        console.log(`📍 Contexte: ${this.currentContext || 'aucun'}`);
     }
 
     collectElements() {
@@ -111,7 +159,9 @@ class EyeSchema {
                     clone.style.cssText = 'fill:transparent;stroke:none;pointer-events:all';
                     original.parentNode.appendChild(clone);
                     this.elements[id].push(clone);
-                } catch (e) { /* ignore */ }
+                } catch (e) { 
+                    console.warn(`⚠️ Impossible de cloner ${id}`);
+                }
             });
         });
     }
@@ -122,16 +172,14 @@ class EyeSchema {
             const group = this.elements[id] || [];
             const config = SCHEMA_CONFIG.structures[id];
 
-            el.addEventListener('mouseenter', (e) => {
-                this.currentMouseX = e.clientX;
-                this.currentMouseY = e.clientY;
+            el.addEventListener('mouseenter', e => {
+                this.mousePos = { x: e.clientX, y: e.clientY };
                 this.showTooltip(config);
                 this.highlight(group, id);
             });
 
-            el.addEventListener('mousemove', (e) => {
-                this.currentMouseX = e.clientX;
-                this.currentMouseY = e.clientY;
+            el.addEventListener('mousemove', e => {
+                this.mousePos = { x: e.clientX, y: e.clientY };
                 this.updateTooltipPosition();
             });
             
@@ -163,8 +211,10 @@ class EyeSchema {
 
     updateTooltipPosition() {
         const offset = 20;
-        this.tooltip.style.left = `${this.currentMouseX + offset}px`;
-        this.tooltip.style.top = `${this.currentMouseY + offset}px`;
+        Object.assign(this.tooltip.style, {
+            left: `${this.mousePos.x + offset}px`,
+            top: `${this.mousePos.y + offset}px`
+        });
     }
 
     hideTooltip() {
@@ -175,7 +225,6 @@ class EyeSchema {
         group.forEach(el => el.classList.add('hover-active'));
         this.svgWrapper.classList.add('dimmed');
         
-        // Highlight correspondant dans le panneau latéral
         const panelItem = document.querySelector(`.structure-item[data-id="${id}"]`);
         if (panelItem) panelItem.classList.add('highlighted');
     }
@@ -184,21 +233,80 @@ class EyeSchema {
         group.forEach(el => el.classList.remove('hover-active'));
         this.svgWrapper.classList.remove('dimmed');
         
-        // Unhighlight dans le panneau latéral
         const panelItem = document.querySelector(`.structure-item[data-id="${id}"]`);
         if (panelItem) panelItem.classList.remove('highlighted');
     }
 
+    /**
+     * Navigation intelligente avec gestion contextuelle
+     */
     navigate(id) {
-        // Vérifier s'il existe un lien personnalisé
-        if (this.customLinks[id]) {
-            window.location.href = this.customLinks[id];
+        // Construire l'URL en fonction du contexte
+        let targetUrl = this.buildContextualUrl(id);
+        
+        if (!targetUrl) {
+            console.warn(`⚠️ Aucune route pour ${id}`);
             return;
         }
         
-        // Navigation par défaut
-        const directory = id === 'nerf-optique' ? 'nerf_optique' : id.replace('-', '_');
-        window.navigateTo(`${directory}/index.php`);
+        console.log(`🔗 Navigation: ${id} → ${targetUrl}`);
+        window.location.href = targetUrl;
+    }
+
+    /**
+     * Construit l'URL en fonction du contexte actuel
+     */
+    buildContextualUrl(structureId) {
+        const routes = SCHEMA_CONFIG.contextualRoutes[structureId];
+        
+        if (!routes) {
+            // Pas de route spéciale, navigation standard
+            const directory = structureId === 'nerf-optique' 
+                ? 'nerf_optique' 
+                : structureId.replace(/-/g, '_');
+            return `${directory}/index.php`;
+        }
+        
+        // Route contextuelle disponible
+        let targetPath;
+        
+        if (this.currentContext && routes[this.currentContext]) {
+            targetPath = routes[this.currentContext];
+        } else {
+            targetPath = routes.default || routes[Object.keys(routes)[0]];
+        }
+        
+        // Calculer le chemin relatif depuis la page actuelle
+        const currentPath = window.location.pathname;
+        // FIX: Ne pas soustraire 1, on compte le nombre de dossiers à remonter
+        const currentDepth = currentPath.split('/').filter(p => p && p !== 'index.php').length;
+        
+        // Remonter à la racine puis descendre vers la cible
+        const upLevels = '../'.repeat(currentDepth);
+        let finalUrl = upLevels + targetPath;
+        
+        // Ajouter le contexte si nécessaire
+        if (this.currentContext && this.shouldPreserveContext(structureId)) {
+            const separator = finalUrl.includes('?') ? '&' : '?';
+            finalUrl += `${separator}from=${encodeURIComponent(this.currentContext)}`;
+        }
+        
+        return finalUrl;
+    }
+
+    /**
+     * Détermine si on doit préserver le contexte dans l'URL
+     */
+    shouldPreserveContext(structureId) {
+        const routes = SCHEMA_CONFIG.contextualRoutes[structureId];
+        
+        // Si plusieurs contextes mènent à la même page, préserver le contexte
+        if (routes) {
+            const uniquePaths = new Set(Object.values(routes));
+            return uniquePaths.size === 1 && Object.keys(routes).length > 2; // Plus d'un contexte + default
+        }
+        
+        return false;
     }
 
     initSidePanel() {
@@ -217,7 +325,7 @@ class EyeSchema {
     }
 }
 
-// Initialisation
+// Initialisation sécurisée
 const schema = new EyeSchema();
 window.loadEyeSchema = () => schema.load();
 window.initSchema = () => schema.init();

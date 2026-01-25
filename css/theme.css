@@ -1,36 +1,14 @@
-/* theme.css - Gestion du thème clair/sombre */
+/* theme.css - Gestion du thème clair/sombre OPTIMISÉ */
 
 /* ========================================
-LIGHT THEME
+   LIGHT THEME (par défaut)
 ======================================== */
 html.light {
     background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #fce7f3 100%);
 }
 
-html.light .bubble-description {
-    background: rgba(255, 255, 255, 0.97);
-    color: #1e293b;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-html.light .bubble-description::after {
-    border-top-color: rgba(255, 255, 255, 0.97);
-}
-
-html.light .svg-container {
-    background: rgba(255, 255, 255, 0.45);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.1);
-}
-
-html.light .info-panel {
-    background: rgba(255, 255, 255, 0.28);
-    border-color: rgba(255, 255, 255, 0.35);
-}
-
 /* ========================================
-DARK THEME
+   DARK THEME
 ======================================== */
 html.dark {
     background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
@@ -39,109 +17,6 @@ html.dark {
 html.dark .orb {
     opacity: 0.12;
     filter: blur(140px);
-}
-
-html.dark .header h1 {
-    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #e879f9 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 4px 8px rgba(129, 140, 248, 0.3));
-}
-
-html.dark .header p,
-html.dark .footer {
-    color: #cbd5e1;
-}
-
-html.dark .bubble-title,
-html.dark .structure-item {
-    color: #e2e8f0;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-html.dark .bubble-description {
-    color: #cbd5e1;
-}
-
-/* Bubbles & Flip cards containers */
-html.dark .bubble,
-html.dark .flip-card {
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.08);
-}
-
-html.dark .bubble::before,
-html.dark .flip-card::before {
-    opacity: 0.12;
-}
-
-html.dark .bubble:hover,
-html.dark .flip-card:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(255, 255, 255, 0.15);
-}
-
-html.dark .bubble:hover::before,
-html.dark .flip-card:hover::before {
-    opacity: 0.8;
-}
-
-/* Couleurs par section */
-html.dark body[class*="section-"] .bubble,
-html.dark body[class*="section-"] .flip-card {
-    background: rgba(var(--section-color), 0.06);
-    border-color: rgba(var(--section-color), 0.2);
-}
-
-html.dark body[class*="section-"] .bubble:hover,
-html.dark body[class*="section-"] .flip-card:hover {
-    background: rgba(var(--section-color), 0.12);
-    border-color: rgba(var(--section-color), 0.5);
-}
-
-/* Page d'accueil */
-html.dark .index-page .bubble:nth-child(1) { --section-color: 255, 107, 157; }
-html.dark .index-page .bubble:nth-child(2) { --section-color: 79, 172, 254; }
-html.dark .index-page .bubble:nth-child(3) { --section-color: 67, 233, 123; }
-html.dark .index-page .bubble:nth-child(4) { --section-color: 234, 179, 8; }
-
-html.dark .index-page .bubble {
-    background: rgba(var(--section-color), 0.06);
-    border-color: rgba(var(--section-color), 0.2);
-}
-
-/* Glow effect */
-html.dark .bubble .glow,
-html.dark .flip-card .glow {
-    opacity: 0.06;
-}
-
-html.dark .bubble:hover .glow,
-html.dark .flip-card:hover .glow {
-    opacity: 0.2;
-}
-
-/* Cartes spéciales */
-html.dark .dysendocrinies-card {
-    background: rgba(55, 65, 81, 0.1) !important;
-    border-color: rgba(55, 65, 81, 0.3) !important;
-}
-
-html.dark .dysendocrinies-card:hover {
-    background: rgba(55, 65, 81, 0.18) !important;
-    border-color: rgba(55, 65, 81, 0.5) !important;
-}
-
-html.dark .mecanismes-card {
-    background: rgba(249, 250, 251, 0.08) !important;
-    border-color: rgba(229, 231, 235, 0.2) !important;
-}
-
-html.dark .mecanismes-card:hover {
-    background: rgba(249, 250, 251, 0.15) !important;
-    border-color: rgba(229, 231, 235, 0.4) !important;
 }
 
 /* SVG & Info panel */
@@ -154,4 +29,15 @@ html.dark .svg-container {
 html.dark .info-panel {
     background: rgba(30, 41, 59, 0.42);
     border-color: rgba(255, 255, 255, 0.14);
+}
+
+html.light .svg-container {
+    background: rgba(255, 255, 255, 0.45);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.1);
+}
+
+html.light .info-panel {
+    background: rgba(255, 255, 255, 0.28);
+    border-color: rgba(255, 255, 255, 0.35);
 }

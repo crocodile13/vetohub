@@ -1,27 +1,21 @@
 <?php
 /**
- * Template header commun à toutes les pages
+ * Template header commun - OPTIMISÉ
  */
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/navigation_helper.php';
 
-// Génération automatique de la navigation SI elle n'est pas définie manuellement
+// Génération automatique de la navigation SI non définie
 if (!isset($breadcrumbs) || !isset($body_class)) {
     $nav = getNavigation($_SERVER['SCRIPT_FILENAME']);
     
-    // Utiliser les valeurs auto-générées seulement si non définies
-    if (!isset($breadcrumbs)) {
-        $breadcrumbs = $nav['breadcrumbs'];
-    }
+    if (!isset($breadcrumbs)) $breadcrumbs = $nav['breadcrumbs'];
     
     if (!isset($body_class)) {
         $body_class = $nav['theme'];
-    } else {
-        // Si body_class existe mais ne contient pas de thème de section, l'ajouter
-        if (!preg_match('/section-/', $body_class)) {
-            $body_class = $nav['theme'] . ' ' . $body_class;
-        }
+    } elseif (!preg_match('/section-/', $body_class)) {
+        $body_class = $nav['theme'] . ' ' . $body_class;
     }
 }
 
@@ -46,43 +40,6 @@ $load_schema = $load_schema ?? false;
     <link rel="stylesheet" href="<?= asset('css/schema.css') ?>">
     <link rel="stylesheet" href="<?= asset('css/breadcrumb.css') ?>">
     <link rel="stylesheet" href="<?= asset('css/theme.css') ?>">
-    
-    <!-- Fix mode sombre flipcards - OPAQUE -->
-    <style>
-        html.dark .flip-card-front {
-            background-color: #2d3748 !important;
-            color: #f1f5f9 !important;
-        }
-        
-        html.dark .flip-card-front * {
-            color: #f1f5f9 !important;
-        }
-        
-        html.dark .flip-card-back {
-            background-color: #343e50 !important;
-            color: #f1f5f9 !important;
-        }
-        
-        html.dark .flip-card-back * {
-            color: #f1f5f9 !important;
-        }
-        
-        html.dark .dysendocrinies-card .flip-card-front {
-            background-color: #374151 !important;
-        }
-        
-        html.dark .dysendocrinies-card .flip-card-back {
-            background-color: #374151 !important;
-        }
-        
-        html.dark .mecanismes-card .flip-card-front {
-            background-color: #2d3748 !important;
-        }
-        
-        html.dark .mecanismes-card .flip-card-back {
-            background-color: #343e50 !important;
-        }
-    </style>
 </head>
 
 <body class="<?= htmlspecialchars($body_class) ?>">
@@ -99,13 +56,12 @@ $load_schema = $load_schema ?? false;
 <!-- Theme toggle -->
 <button class="theme-toggle" aria-label="Changer le thème">🌙</button>
 
-<!-- Breadcrumb unique et contextuel -->
+<!-- Breadcrumb -->
 <?php if (!empty($breadcrumbs)): ?>
 <nav class="breadcrumb-nav">
     <?php foreach ($breadcrumbs as $i => $crumb): 
         if ($i > 0) echo '<span class="breadcrumb-separator">›</span>';
         
-        // Le dernier élément n'est jamais cliquable (page actuelle)
         $isLast = ($i === count($breadcrumbs) - 1);
         
         if (!$isLast): ?>
@@ -117,4 +73,15 @@ $load_schema = $load_schema ?? false;
         <?php endif; 
     endforeach; ?>
 </nav>
+<?php endif; ?>
+
+<!-- DEBUG PANEL - À RETIRER EN PRODUCTION -->
+<?php if (DEBUG_MODE): ?>
+<div style="position:fixed;bottom:10px;left:10px;background:#000;color:#0f0;padding:10px;font-family:monospace;z-index:9999;font-size:11px;border-radius:8px;max-width:350px;line-height:1.6;">
+    <strong style="color:#ff0;">🐛 DEBUG MODE</strong><br>
+    <strong>Context:</strong> <?= NavigationHelper::getCurrentContext() ?? '<span style="color:#f00;">null</span>' ?><br>
+    <strong>GET[from]:</strong> <?= isset($_GET['from']) ? htmlspecialchars($_GET['from']) : '<span style="color:#888;">not set</span>' ?><br>
+    <strong>Path:</strong> <?= htmlspecialchars($_SERVER['SCRIPT_NAME']) ?><br>
+    <strong>Referer:</strong> <?= isset($_SERVER['HTTP_REFERER']) ? htmlspecialchars(basename(parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH))) : '<span style="color:#888;">none</span>' ?>
+</div>
 <?php endif; ?>

@@ -3,6 +3,7 @@
  * Template footer commun à toutes les pages
  */
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/navigation_helper.php';
 ?>
 <footer class="footer">
     <div style="margin-bottom: 15px;">
@@ -24,6 +25,7 @@ require_once __DIR__ . '/config.php';
 <!-- Configuration globale pour JS -->
 <script>
     window.BASE_URL = <?= json_encode(BASE_URL) ?>;
+    window.CURRENT_CONTEXT = <?= json_encode(NavigationHelper::getCurrentContext() ?? '') ?>;
 </script>
 
 <!-- Scripts modulaires -->

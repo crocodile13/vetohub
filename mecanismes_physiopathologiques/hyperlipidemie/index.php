@@ -10,10 +10,14 @@ $load_schema = true;
 include __DIR__ . '/../../header.php';
 require_once __DIR__ . '/../../components_helper.php';
 
+// Détection automatique du contexte actuel
+$currentContext = NavigationHelper::getCurrentContext() ?? 'mecanismes';
+
 // Configuration des structures affectées par l'hyperlipidémie
+// Le système construit automatiquement les liens avec le contexte
 $structures = [
-    ['id' => 'chambre-anterieure', 'label' => 'Chambre antérieure', 'link' => '../../dysendocrinies/hypothyroidie/chambre_anterieure/index.php?from=mecanismes'],
-    ['id' => 'cornee', 'label' => 'Cornée', 'link' => '../../dysendocrinies/hypothyroidie/chambre_anterieure/index.php?from=mecanismes'],
+    ['id' => 'chambre-anterieure', 'label' => 'Chambre antérieure'],
+    ['id' => 'cornee', 'label' => 'Cornée'],
     ['id' => 'retine', 'label' => 'Rétine']
 ];
 ?>
@@ -32,11 +36,8 @@ $structures = [
         <h2 style="margin-bottom:1.6rem; color:#d1d5db;">Structures affectées</h2>
         <?php foreach ($structures as $structure): ?>
             <div class="structure-item" 
-                 data-id="<?= $structure['id'] ?>"
-                 <?php if (isset($structure['link'])): ?>
-                 data-custom-link="<?= htmlspecialchars($structure['link']) ?>"
-                 <?php endif; ?>>
-                <?= $structure['label'] ?>
+                 data-id="<?= htmlspecialchars($structure['id']) ?>">
+                <?= htmlspecialchars($structure['label']) ?>
             </div>
         <?php endforeach; ?>
     </div>

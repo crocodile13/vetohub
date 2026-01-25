@@ -1,7 +1,24 @@
 /* components.css - Composants UI réutilisables ULTRA-OPTIMISÉ */
 
 /* ========================================
-   MIXINS ET CONFIGURATIONS PARTAGÉES
+   CUSTOM PROPERTIES PARTAGÉES
+======================================== */
+:root {
+    --card-bg: rgba(255, 255, 255, 0.35);
+    --card-border: rgba(255, 255, 255, 0.4);
+    --card-shadow: 0 15px 45px rgba(0, 0, 0, 0.08), inset 0 0 30px rgba(255, 255, 255, 0.2);
+    --card-hover-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(255, 255, 255, 0.35);
+}
+
+html.dark {
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --card-border: rgba(255, 255, 255, 0.2);
+    --card-shadow: 0 15px 45px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.08);
+    --card-hover-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(255, 255, 255, 0.15);
+}
+
+/* ========================================
+   STYLES COMMUNS CARTES (bubble + flip-card)
 ======================================== */
 .bubble, .flip-card {
     position: relative;
@@ -9,24 +26,35 @@
     cursor: pointer;
     transition: all var(--transition-slow);
     backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08), inset 0 0 30px rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--card-border);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
 }
 
 .bubble::before, .flip-card::before {
     content: '';
     position: absolute;
     inset: -2px;
-    background: linear-gradient(45deg, transparent, transparent);
+    background: transparent;
     border-radius: inherit;
     z-index: -1;
     opacity: 0.15;
     transition: opacity 0.5s ease;
 }
 
+.bubble:hover, .flip-card:hover {
+    transform: translateY(-25px) scale(1.04);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: var(--card-hover-shadow);
+}
+
 .bubble:hover::before, .flip-card:hover::before {
     opacity: 1;
+}
+
+html.dark .bubble:hover::before, 
+html.dark .flip-card:hover::before {
+    opacity: 0.8;
 }
 
 .glow {
@@ -44,6 +72,102 @@
 
 .bubble:hover .glow, .flip-card:hover .glow {
     opacity: 0.25;
+}
+
+html.dark .glow {
+    opacity: 0.06;
+}
+
+html.dark .bubble:hover .glow, 
+html.dark .flip-card:hover .glow {
+    opacity: 0.2;
+}
+
+/* ========================================
+   COULEURS PAR SECTION - SYSTÈME UNIFIÉ
+======================================== */
+body.section-lesions-oculaires { --section-color: 255, 107, 157; }
+body.section-se-tester { --section-color: 79, 172, 254; }
+body.section-dysendocrinies { --section-color: 67, 233, 123; }
+body.section-mecanismes { --section-color: 234, 179, 8; }
+
+.index-page .bubble:nth-child(1) { --section-color: 255, 107, 157; }
+.index-page .bubble:nth-child(2) { --section-color: 79, 172, 254; }
+.index-page .bubble:nth-child(3) { --section-color: 67, 233, 123; }
+.index-page .bubble:nth-child(4) { --section-color: 234, 179, 8; }
+
+/* Application des couleurs de section */
+body[class*="section-"] .bubble,
+body[class*="section-"] .flip-card,
+.index-page .bubble {
+    background: rgba(var(--section-color), 0.08);
+    border-color: rgba(var(--section-color), 0.25);
+}
+
+body[class*="section-"] .bubble::before,
+body[class*="section-"] .flip-card::before,
+.index-page .bubble::before {
+    background: linear-gradient(135deg, 
+        rgba(var(--section-color), 0.3), 
+        rgba(var(--section-color), 0.25), 
+        rgba(var(--section-color), 0.2));
+}
+
+body[class*="section-"] .bubble:hover,
+body[class*="section-"] .flip-card:hover,
+.index-page .bubble:hover {
+    background: rgba(var(--section-color), 0.15);
+    border-color: rgb(var(--section-color));
+}
+
+body[class*="section-"] .bubble .glow,
+body[class*="section-"] .flip-card .glow,
+.index-page .bubble .glow {
+    background: rgb(var(--section-color));
+}
+
+html.dark body[class*="section-"] .bubble,
+html.dark body[class*="section-"] .flip-card,
+html.dark .index-page .bubble {
+    background: rgba(var(--section-color), 0.06);
+    border-color: rgba(var(--section-color), 0.2);
+}
+
+html.dark body[class*="section-"] .bubble:hover,
+html.dark body[class*="section-"] .flip-card:hover,
+html.dark .index-page .bubble:hover {
+    background: rgba(var(--section-color), 0.12);
+    border-color: rgba(var(--section-color), 0.5);
+}
+
+/* Cartes spéciales */
+.dysendocrinies-card { --special-color: 55, 65, 81; }
+.mecanismes-card { --special-color: 209, 213, 219; }
+
+.dysendocrinies-card, .mecanismes-card {
+    background: rgba(var(--special-color), 0.06) !important;
+    border-color: rgba(var(--special-color), 0.25) !important;
+}
+
+.dysendocrinies-card:hover, .mecanismes-card:hover {
+    background: rgba(var(--special-color), 0.2) !important;
+    border-color: rgb(var(--special-color)) !important;
+}
+
+.dysendocrinies-card .glow, .mecanismes-card .glow {
+    background: rgb(var(--special-color)) !important;
+}
+
+html.dark .dysendocrinies-card, 
+html.dark .mecanismes-card {
+    background: rgba(var(--special-color), 0.1) !important;
+    border-color: rgba(var(--special-color), 0.3) !important;
+}
+
+html.dark .dysendocrinies-card:hover, 
+html.dark .mecanismes-card:hover {
+    background: rgba(var(--special-color), 0.18) !important;
+    border-color: rgba(var(--special-color), 0.5) !important;
 }
 
 /* ========================================
@@ -116,6 +240,19 @@
     line-height: 1.6;
 }
 
+html.dark .header h1 {
+    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #e879f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 8px rgba(129, 140, 248, 0.3));
+}
+
+html.dark .header p,
+html.dark .footer {
+    color: #cbd5e1;
+}
+
 .footer {
     margin-top: 70px;
     text-align: center;
@@ -159,77 +296,6 @@
     padding: 55px 45px;
 }
 
-.bubble:hover {
-    transform: translateY(-25px) scale(1.04);
-    border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(255, 255, 255, 0.35);
-}
-
-/* COULEURS PAR SECTION - Utilisation de custom properties pour éviter la répétition */
-body.section-lesions-oculaires {
-    --section-color: 255, 107, 157;
-    --section-gradient: linear-gradient(135deg, rgba(255,107,157,0.3), rgba(255,141,180,0.3), rgba(255,166,201,0.3));
-}
-
-body.section-se-tester {
-    --section-color: 79, 172, 254;
-    --section-gradient: linear-gradient(135deg, rgba(79,172,254,0.3), rgba(111,196,255,0.3), rgba(141,213,255,0.3));
-}
-
-body.section-dysendocrinies {
-    --section-color: 67, 233, 123;
-    --section-gradient: linear-gradient(135deg, rgba(67,233,123,0.3), rgba(95,240,149,0.3), rgba(124,245,171,0.3));
-}
-
-body.section-mecanismes {
-    --section-color: 234, 179, 8;
-    --section-gradient: linear-gradient(135deg, rgba(234,179,8,0.3), rgba(250,204,21,0.3), rgba(253,224,71,0.3));
-}
-
-/* Application des couleurs */
-body[class*="section-"] .bubble {
-    background: rgba(var(--section-color), 0.08);
-    border-color: rgba(var(--section-color), 0.25);
-}
-
-body[class*="section-"] .bubble::before {
-    background: var(--section-gradient);
-}
-
-body[class*="section-"] .bubble:hover {
-    background: rgba(var(--section-color), 0.15);
-    border-color: rgb(var(--section-color));
-}
-
-body[class*="section-"] .bubble .glow {
-    background: rgb(var(--section-color));
-}
-
-/* Page d'accueil - couleurs individuelles par bubble */
-.index-page .bubble:nth-child(1) { --section-color: 255, 107, 157; --section-gradient: linear-gradient(135deg, rgba(255,107,157,0.3), rgba(255,141,180,0.3), rgba(255,166,201,0.3)); }
-.index-page .bubble:nth-child(2) { --section-color: 79, 172, 254; --section-gradient: linear-gradient(135deg, rgba(79,172,254,0.3), rgba(111,196,255,0.3), rgba(141,213,255,0.3)); }
-.index-page .bubble:nth-child(3) { --section-color: 67, 233, 123; --section-gradient: linear-gradient(135deg, rgba(67,233,123,0.3), rgba(95,240,149,0.3), rgba(124,245,171,0.3)); }
-.index-page .bubble:nth-child(4) { --section-color: 234, 179, 8; --section-gradient: linear-gradient(135deg, rgba(234,179,8,0.3), rgba(250,204,21,0.3), rgba(253,224,71,0.3)); }
-
-/* Application des couleurs pour l'index */
-.index-page .bubble {
-    background: rgba(var(--section-color), 0.08);
-    border-color: rgba(var(--section-color), 0.25);
-}
-
-.index-page .bubble::before {
-    background: var(--section-gradient);
-}
-
-.index-page .bubble:hover {
-    background: rgba(var(--section-color), 0.15);
-    border-color: rgb(var(--section-color));
-}
-
-.index-page .bubble .glow {
-    background: rgb(var(--section-color));
-}
-
 /* ========================================
    ICON WRAPPER
 ======================================== */
@@ -262,10 +328,21 @@ body[class*="section-"] .bubble .glow {
     background: linear-gradient(135deg, rgb(var(--section-color)) 0%, rgba(var(--section-color), 0.8) 100%);
 }
 
-.bubble .icon-content img {
+.bubble .icon-content img,
+.icon-letter-fallback {
     width: 60%;
     height: 60%;
     object-fit: contain;
+}
+
+.icon-letter-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .bubble:hover .icon-content {
@@ -291,6 +368,12 @@ body[class*="section-"] .bubble .glow {
     letter-spacing: -0.5px;
     line-height: 1.3;
     min-height: 2.6rem;
+}
+
+html.dark .bubble-title,
+html.dark .structure-item {
+    color: #e2e8f0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .bubble-description {
@@ -337,6 +420,21 @@ body[class*="section-"] .bubble .glow {
     border-top-color: rgba(30, 41, 59, 0.97);
 }
 
+html.light .bubble-description {
+    background: rgba(255, 255, 255, 0.97);
+    color: #1e293b;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+html.light .bubble-description::after {
+    border-top-color: rgba(255, 255, 255, 0.97);
+}
+
+html.dark .bubble-description {
+    color: #cbd5e1;
+}
+
 /* ========================================
    STRUCTURE ITEMS
 ======================================== */
@@ -353,11 +451,18 @@ body[class*="section-"] .bubble .glow {
     background: rgba(255, 255, 255, 0.3);
 }
 
-.structure-item:hover {
+.structure-item:hover,
+.structure-item.highlighted {
     transform: translateX(6px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     background: rgba(var(--section-color), 0.25);
     border-color: rgb(var(--section-color));
+}
+
+.structure-item.highlighted {
+    transform: translateX(8px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    background: rgba(var(--section-color), 0.35) !important;
 }
 
 /* ========================================
@@ -401,27 +506,4 @@ body[class*="section-"] .bubble .glow {
         height: 50px;
         font-size: 1.2rem;
     }
-}
-
-/* Ajoutez à la fin de css/components.css */
-
-/* ========================================
-   ICON LETTER FALLBACK
-======================================== */
-.icon-letter-fallback {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: white;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.bubble .icon-content img {
-    width: 60%;
-    height: 60%;
-    object-fit: contain;
 }
