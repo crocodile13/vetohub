@@ -6,7 +6,7 @@
 // Configuration
 define('BASE_URL', '/');
 define('ASSETS_VERSION', time());
-define('DEBUG_MODE', true); // Mettre à false en production
+define('DEBUG_MODE', false); // Mettre à false en production
 
 // Informations
 define('APP_NAME', 'VetoHub');
