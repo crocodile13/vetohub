@@ -1,6 +1,9 @@
-/* breadcrumb.css - Navigation fil d'Ariane optimisée */
+/* breadcrumb.css - Navigation fil d'Ariane optimisée et contextuelle */
 
-/* Breadcrumb Navigation */
+/* ========================================
+   BREADCRUMB NAVIGATION
+======================================== */
+
 .breadcrumb-nav {
     position: fixed;
     top: 30px;
@@ -9,7 +12,7 @@
     align-items: center;
     gap: 4px;
     z-index: 1000;
-    padding: 4px 10px;
+    padding: 6px 12px;
     border-radius: 50px;
     backdrop-filter: blur(15px);
     background: rgba(255, 255, 255, 0.25);
@@ -18,52 +21,116 @@
     font-size: 0.85rem;
     font-weight: 500;
     transition: all 0.3s ease;
+    max-width: calc(100vw - 140px); /* Laisse place au theme toggle */
 }
 
 .breadcrumb-nav:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.35);
 }
 
-/* Double breadcrumb - position alternative */
-.breadcrumb-alt {
-    top: 90px;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-}
+/* ========================================
+   BREADCRUMB ELEMENTS
+======================================== */
 
 .breadcrumb-link {
     color: #64748b;
     text-decoration: none;
-    transition: color 0.2s ease;
-    padding: 0 4px;
-    border-radius: 4px;
+    transition: all 0.2s ease;
+    padding: 2px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .breadcrumb-link:hover {
     color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+    transform: translateY(-1px);
+}
+
+.breadcrumb-link:active {
+    transform: translateY(0);
 }
 
 .breadcrumb-separator {
     color: #94a3b8;
     font-size: 0.9rem;
     user-select: none;
+    margin: 0 2px;
+    opacity: 0.6;
 }
 
 .breadcrumb-current {
-    color: #1e293b;
+    color: #475569;
     font-weight: 600;
-    padding: 0 4px;
+    padding: 2px 6px;
+    white-space: nowrap;
 }
 
-/* Dark theme adjustments */
+/* ========================================
+   THEMATIC VARIATIONS
+======================================== */
+
+/* Lésions Oculaires - Rose */
+body.section-lesions-oculaires .breadcrumb-nav {
+    background: rgba(255, 107, 157, 0.15);
+    border-color: rgba(255, 107, 157, 0.3);
+}
+
+body.section-lesions-oculaires .breadcrumb-link:hover {
+    color: #ff6b9d;
+    background: rgba(255, 107, 157, 0.15);
+}
+
+/* Se Tester - Bleu */
+body.section-se-tester .breadcrumb-nav {
+    background: rgba(79, 172, 254, 0.15);
+    border-color: rgba(79, 172, 254, 0.3);
+}
+
+body.section-se-tester .breadcrumb-link:hover {
+    color: #4facfe;
+    background: rgba(79, 172, 254, 0.15);
+}
+
+/* Dysendocrinies - Vert */
+body.section-dysendocrinies .breadcrumb-nav {
+    background: rgba(67, 233, 123, 0.15);
+    border-color: rgba(67, 233, 123, 0.3);
+}
+
+body.section-dysendocrinies .breadcrumb-link:hover {
+    color: #43e97b;
+    background: rgba(67, 233, 123, 0.15);
+}
+
+/* Mécanismes - Jaune */
+body.section-mecanismes .breadcrumb-nav {
+    background: rgba(234, 179, 8, 0.15);
+    border-color: rgba(234, 179, 8, 0.3);
+}
+
+body.section-mecanismes .breadcrumb-link:hover {
+    color: #eab308;
+    background: rgba(234, 179, 8, 0.15);
+}
+
+/* ========================================
+   DARK THEME ADJUSTMENTS
+======================================== */
+
 html.dark .breadcrumb-nav {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
-html.dark .breadcrumb-alt {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
+html.dark .breadcrumb-nav:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 html.dark .breadcrumb-link {
@@ -72,27 +139,124 @@ html.dark .breadcrumb-link {
 
 html.dark .breadcrumb-link:hover {
     color: #818cf8;
+    background: rgba(129, 140, 248, 0.15);
+}
+
+html.dark .breadcrumb-separator {
+    color: #64748b;
 }
 
 html.dark .breadcrumb-current {
-    color: #e2e8f0;
+    color: #cbd5e1;
 }
 
-/* Responsive */
+/* Dark theme - Thematic variations */
+html.dark body.section-lesions-oculaires .breadcrumb-nav {
+    background: rgba(255, 107, 157, 0.1);
+    border-color: rgba(255, 107, 157, 0.25);
+}
+
+html.dark body.section-lesions-oculaires .breadcrumb-link:hover {
+    color: #ff8db4;
+    background: rgba(255, 107, 157, 0.2);
+}
+
+html.dark body.section-se-tester .breadcrumb-nav {
+    background: rgba(79, 172, 254, 0.1);
+    border-color: rgba(79, 172, 254, 0.25);
+}
+
+html.dark body.section-se-tester .breadcrumb-link:hover {
+    color: #6fc4ff;
+    background: rgba(79, 172, 254, 0.2);
+}
+
+html.dark body.section-dysendocrinies .breadcrumb-nav {
+    background: rgba(67, 233, 123, 0.1);
+    border-color: rgba(67, 233, 123, 0.25);
+}
+
+html.dark body.section-dysendocrinies .breadcrumb-link:hover {
+    color: #5ff095;
+    background: rgba(67, 233, 123, 0.2);
+}
+
+html.dark body.section-mecanismes .breadcrumb-nav {
+    background: rgba(234, 179, 8, 0.1);
+    border-color: rgba(234, 179, 8, 0.25);
+}
+
+html.dark body.section-mecanismes .breadcrumb-link:hover {
+    color: #facc15;
+    background: rgba(234, 179, 8, 0.2);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 1024px) {
+    .breadcrumb-nav {
+        max-width: calc(100vw - 120px);
+        font-size: 0.8rem;
+    }
+}
+
 @media (max-width: 768px) {
     .breadcrumb-nav {
         top: 20px;
         left: 20px;
         right: 80px;
-        font-size: 0.8rem;
-        padding: 3px 8px;
+        max-width: none;
+        font-size: 0.75rem;
+        padding: 4px 10px;
         gap: 3px;
         flex-wrap: wrap;
+        line-height: 1.4;
     }
     
-    .breadcrumb-alt {
-        top: 65px;
-        font-size: 0.75rem;
+    .breadcrumb-link,
+    .breadcrumb-current {
+        padding: 1px 4px;
+    }
+    
+    .breadcrumb-separator {
+        font-size: 0.8rem;
+        margin: 0 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb-nav {
+        font-size: 0.7rem;
         padding: 3px 8px;
+        gap: 2px;
+    }
+    
+    .breadcrumb-link,
+    .breadcrumb-current {
+        padding: 1px 3px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+.breadcrumb-nav:focus-within {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+.breadcrumb-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    .breadcrumb-nav,
+    .breadcrumb-link {
+        transition: none;
     }
 }

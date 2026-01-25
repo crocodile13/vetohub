@@ -5,9 +5,6 @@
 
 $page_title = "VetoHub - Formation Vétérinaire";
 $body_class = "index-page";
-$breadcrumbs = [
-    ['title' => 'Accueil']
-];
 
 include 'header.php';
 require_once 'components_helper.php';

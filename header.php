@@ -4,11 +4,29 @@
  */
 
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/navigation_helper.php';
+
+// Génération automatique de la navigation SI elle n'est pas définie manuellement
+if (!isset($breadcrumbs) || !isset($body_class)) {
+    $nav = getNavigation($_SERVER['SCRIPT_FILENAME']);
+    
+    // Utiliser les valeurs auto-générées seulement si non définies
+    if (!isset($breadcrumbs)) {
+        $breadcrumbs = $nav['breadcrumbs'];
+    }
+    
+    if (!isset($body_class)) {
+        $body_class = $nav['theme'];
+    } else {
+        // Si body_class existe mais ne contient pas de thème de section, l'ajouter
+        if (!preg_match('/section-/', $body_class)) {
+            $body_class = $nav['theme'] . ' ' . $body_class;
+        }
+    }
+}
 
 $page_title = $page_title ?? APP_NAME;
 $body_class = $body_class ?? '';
-$breadcrumbs = $breadcrumbs ?? [];
-$breadcrumbs_alt = $breadcrumbs_alt ?? [];
 $load_schema = $load_schema ?? false;
 ?>
 <!DOCTYPE html>
@@ -81,32 +99,18 @@ $load_schema = $load_schema ?? false;
 <!-- Theme toggle -->
 <button class="theme-toggle" aria-label="Changer le thème">🌙</button>
 
-<!-- Breadcrumb principal -->
+<!-- Breadcrumb unique et contextuel -->
 <?php if (!empty($breadcrumbs)): ?>
 <nav class="breadcrumb-nav">
     <?php foreach ($breadcrumbs as $i => $crumb): 
         if ($i > 0) echo '<span class="breadcrumb-separator">›</span>';
         
-        if (isset($crumb['link'])): ?>
-            <a href="<?= htmlspecialchars($crumb['link']) ?>" class="breadcrumb-link">
-                <?= $crumb['title'] === 'Accueil' ? '🏠' : htmlspecialchars($crumb['title']) ?>
-            </a>
-        <?php else: ?>
-            <span class="breadcrumb-current"><?= htmlspecialchars($crumb['title']) ?></span>
-        <?php endif; 
-    endforeach; ?>
-</nav>
-<?php endif; ?>
-
-<!-- Breadcrumb alternatif -->
-<?php if (!empty($breadcrumbs_alt)): ?>
-<nav class="breadcrumb-nav breadcrumb-alt">
-    <?php foreach ($breadcrumbs_alt as $i => $crumb): 
-        if ($i > 0) echo '<span class="breadcrumb-separator">›</span>';
+        // Le dernier élément n'est jamais cliquable (page actuelle)
+        $isLast = ($i === count($breadcrumbs) - 1);
         
-        if (isset($crumb['link'])): ?>
+        if (!$isLast): ?>
             <a href="<?= htmlspecialchars($crumb['link']) ?>" class="breadcrumb-link">
-                <?= $crumb['title'] === 'Accueil' ? '🏠' : htmlspecialchars($crumb['title']) ?>
+                <?= htmlspecialchars($crumb['title']) ?>
             </a>
         <?php else: ?>
             <span class="breadcrumb-current"><?= htmlspecialchars($crumb['title']) ?></span>

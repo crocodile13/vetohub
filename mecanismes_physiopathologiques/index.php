@@ -5,10 +5,6 @@
 
 $page_title = "Mécanismes Physiopathologiques - VetoHub";
 $body_class = "section-mecanismes structure-page";
-$breadcrumbs = [
-    ['title' => 'Accueil', 'link' => '../index.php'],
-    ['title' => 'Mécanismes Physiopathologiques']
-];
 
 include '../header.php';
 require_once '../components_helper.php';

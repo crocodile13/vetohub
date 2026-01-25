@@ -1,42 +1,10 @@
 <?php
 /**
  * Page Chambre Antérieure - Hypothyroïdie
+ * Navigation et thème gérés automatiquement par header.php
  */
 
 $page_title = "Chambre Antérieure - Hypothyroïdie - VetoHub";
-$body_class = "section-dysendocrinies structure-page";
-
-// Détection du chemin d'accès (dysendocrinies ou mécanismes)
-$from_mecanismes = isset($_GET['from']) && $_GET['from'] === 'mecanismes';
-
-// Configuration des breadcrumbs selon l'origine
-if ($from_mecanismes) {
-    $breadcrumbs = [
-        ['title' => 'Accueil', 'link' => '../../../index.php'],
-        ['title' => 'Mécanismes Physiopathologiques', 'link' => '../../../mecanismes_physiopathologiques/index.php'],
-        ['title' => 'Hyperlipidémie', 'link' => '../../../mecanismes_physiopathologiques/hyperlipidemie/index.php'],
-        ['title' => 'Chambre Antérieure']
-    ];
-    $breadcrumbs_alt = [
-        ['title' => 'Accueil', 'link' => '../../../index.php'],
-        ['title' => 'Dysendocrinies', 'link' => '../../index.php'],
-        ['title' => 'Hypothyroïdie', 'link' => '../index.php'],
-        ['title' => 'Chambre Antérieure']
-    ];
-} else {
-    $breadcrumbs = [
-        ['title' => 'Accueil', 'link' => '../../../index.php'],
-        ['title' => 'Dysendocrinies', 'link' => '../../index.php'],
-        ['title' => 'Hypothyroïdie', 'link' => '../index.php'],
-        ['title' => 'Chambre Antérieure']
-    ];
-    $breadcrumbs_alt = [
-        ['title' => 'Accueil', 'link' => '../../../index.php'],
-        ['title' => 'Mécanismes Physiopathologiques', 'link' => '../../../mecanismes_physiopathologiques/index.php'],
-        ['title' => 'Hyperlipidémie', 'link' => '../../../mecanismes_physiopathologiques/hyperlipidemie/index.php'],
-        ['title' => 'Chambre Antérieure']
-    ];
-}
 
 include '../../../header.php';
 require_once '../../../components_helper.php';

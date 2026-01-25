@@ -5,11 +5,6 @@
 
 $page_title = "Lésions de la Cornée - VetoHub";
 $body_class = "section-lesions-oculaires structure-page";
-$breadcrumbs = [
-    ['title' => 'Accueil', 'link' => '../../index.php'],
-    ['title' => 'Lésions Oculaires', 'link' => '../index.php'],
-    ['title' => 'Cornée']
-];
 
 include '../../header.php';
 require_once '../../components_helper.php';

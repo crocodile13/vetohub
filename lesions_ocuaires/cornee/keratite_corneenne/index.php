@@ -5,12 +5,6 @@
 
 $page_title = "Kératite Cornéenne - VetoHub";
 $body_class = "section-lesions-oculaires structure-page";
-$breadcrumbs = [
-    ['title' => 'Accueil', 'link' => '../../../index.php'],
-    ['title' => 'Lésions Oculaires', 'link' => '../../index.php'],
-    ['title' => 'Cornée', 'link' => '../index.php'],
-    ['title' => 'Kératite Cornéenne']
-];
 
 include '../../../header.php';
 require_once '../../../components_helper.php';

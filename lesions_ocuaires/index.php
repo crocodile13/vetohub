@@ -6,10 +6,6 @@
 $page_title = "Lésions Oculaires - VetoHub";
 $body_class = "structure-page";
 $load_schema = true;
-$breadcrumbs = [
-    ['title' => 'Accueil', 'link' => '../index.php'],
-    ['title' => 'Lésions Oculaires']
-];
 
 include __DIR__ . '/../header.php';
 require_once __DIR__ . '/../components_helper.php';

@@ -5,10 +5,6 @@
 
 $page_title = "Dysendocrinies - VetoHub";
 $body_class = "section-dysendocrinies structure-page";
-$breadcrumbs = [
-    ['title' => 'Accueil', 'link' => '../index.php'],
-    ['title' => 'Dysendocrinies']
-];
 
 include '../header.php';
 require_once '../components_helper.php';

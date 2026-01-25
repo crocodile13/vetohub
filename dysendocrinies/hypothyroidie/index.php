@@ -6,11 +6,6 @@
 $page_title = "Hypothyroïdie - VetoHub";
 $body_class = "section-dysendocrinies structure-page";
 $load_schema = true;
-$breadcrumbs = [
-    ['title' => 'Accueil', 'link' => '../../index.php'],
-    ['title' => 'Dysendocrinies', 'link' => '../index.php'],
-    ['title' => 'Hypothyroïdie']
-];
 
 include __DIR__ . '/../../header.php';
 require_once __DIR__ . '/../../components_helper.php';

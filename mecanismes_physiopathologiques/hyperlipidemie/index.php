@@ -6,11 +6,6 @@
 $page_title = "Hyperlipidémie - VetoHub";
 $body_class = "section-mecanismes structure-page";
 $load_schema = true;
-$breadcrumbs = [
-    ['title' => 'Accueil', 'link' => '../../index.php'],
-    ['title' => 'Mécanismes Physiopathologiques', 'link' => '../index.php'],
-    ['title' => 'Hyperlipidémie']
-];
 
 include __DIR__ . '/../../header.php';
 require_once __DIR__ . '/../../components_helper.php';
