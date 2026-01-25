@@ -119,6 +119,27 @@ body.section-mecanismes .breadcrumb-link:hover {
 }
 
 /* ========================================
+   NEUTRAL THEME - Home, À propos, etc.
+======================================== */
+
+body.home-page .breadcrumb-nav,
+body.structure-page:not([class*="section-"]) .breadcrumb-nav {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.home-page .breadcrumb-nav:hover,
+body.structure-page:not([class*="section-"]) .breadcrumb-nav:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+body.home-page .breadcrumb-link:hover,
+body.structure-page:not([class*="section-"]) .breadcrumb-link:hover {
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* ========================================
    DARK THEME ADJUSTMENTS
 ======================================== */
 
@@ -189,6 +210,24 @@ html.dark body.section-mecanismes .breadcrumb-nav {
 html.dark body.section-mecanismes .breadcrumb-link:hover {
     color: #facc15;
     background: rgba(234, 179, 8, 0.2);
+}
+
+/* Dark theme - Neutral pages */
+html.dark body.home-page .breadcrumb-nav,
+html.dark body.structure-page:not([class*="section-"]) .breadcrumb-nav {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+html.dark body.home-page .breadcrumb-nav:hover,
+html.dark body.structure-page:not([class*="section-"]) .breadcrumb-nav:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+html.dark body.home-page .breadcrumb-link:hover,
+html.dark body.structure-page:not([class*="section-"]) .breadcrumb-link:hover {
+    color: #818cf8;
+    background: rgba(129, 140, 248, 0.15);
 }
 
 /* ========================================

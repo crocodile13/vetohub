@@ -30,7 +30,7 @@ $structures = [
     </div>
 
     <div class="info-panel">
-        <h2 style="margin-bottom:1.6rem; color:var(--c-retine);">Lésions Oculaires</h2>
+        <h2 class="info-panel-title">Lésions Oculaires</h2>
         <?php foreach ($structures as $structure): ?>
             <div class="structure-item" data-id="<?= $structure['id'] ?>">
                 <?= $structure['label'] ?>

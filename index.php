@@ -4,7 +4,7 @@
  */
 
 $page_title = "VetoHub - Formation Vétérinaire";
-$body_class = "index-page";
+$body_class = "index-page home-page";
 
 include 'header.php';
 require_once 'components_helper.php';

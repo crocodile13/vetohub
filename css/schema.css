@@ -105,3 +105,20 @@
 .structure-item.highlighted .structure-icon-content {
     transform: rotate(360deg) scale(1.1);
 }
+
+/* ========================================
+   INFO PANEL TITLE - COULEUR NEUTRE
+======================================== */
+
+.info-panel-title {
+    margin-bottom: 1.6rem;
+    color: #475569;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease;
+}
+
+html.dark .info-panel-title {
+    color: #cbd5e1;
+}

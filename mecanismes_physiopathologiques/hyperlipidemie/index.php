@@ -33,7 +33,7 @@ $structures = [
     </div>
 
     <div class="info-panel">
-        <h2 style="margin-bottom:1.6rem; color:#d1d5db;">Structures affectées</h2>
+        <h2 class="info-panel-title">Structures affectées</h2>
         <?php foreach ($structures as $structure): ?>
             <div class="structure-item" 
                  data-id="<?= htmlspecialchars($structure['id']) ?>">
