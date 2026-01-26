@@ -122,7 +122,7 @@ VetoHub propose des ressources interactives pour explorer les complications opht
 
 ### Prérequis
 
-- **PHP 7.4+**
+- **PHP 8.4+**
 - Navigateur moderne (Chrome, Firefox, Edge, Safari)
 
 **Vérifier PHP :**
