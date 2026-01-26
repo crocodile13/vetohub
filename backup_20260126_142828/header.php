@@ -3,7 +3,7 @@
  * Template header commun - OPTIMISÉ
  */
 require_once __DIR__ . '/config.php';
-require_once BASE_PATH . '/navigation_helper.php';
+require_once __DIR__ . '/navigation_helper.php';
 
 // Génération automatique de la navigation SI non définie
 if (!isset($breadcrumbs) || !isset($body_class)) {

@@ -1,17 +1,13 @@
 <?php
 /**
- * Configuration requise
- */
-require_once __DIR__ . '/config.php';
-/**
  * Page d'accueil de VetoHub
  */
 
 $page_title = "VetoHub - Formation Vétérinaire";
 $body_class = "index-page home-page";
 
-include BASE_PATH . '/header.php';
-require_once BASE_PATH . '/components_helper.php';
+include 'header.php';
+require_once 'components_helper.php';
 
 // Configuration des sections principales
 $sections = [
@@ -52,4 +48,4 @@ $sections = [
         <?= renderBubble($section) ?>
     <?php endforeach; ?>
 </div>
-<?php include BASE_PATH . '/footer.php'; ?>
+<?php include 'footer.php'; ?>

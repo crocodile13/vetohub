@@ -1,17 +1,13 @@
 <?php
 /**
- * Configuration requise
- */
-require_once __DIR__ . '/../config.php';
-/**
  * Page Mécanismes Physiopathologiques
  */
 
 $page_title = "Mécanismes Physiopathologiques - VetoHub";
 $body_class = "section-mecanismes structure-page";
 
-include BASE_PATH . '/header.php';
-require_once BASE_PATH . '/components_helper.php';
+include '../header.php';
+require_once '../components_helper.php';
 
 // Configuration des mécanismes physiopathologiques
 $mecanismes = [
@@ -44,4 +40,4 @@ $mecanismes = [
     <?php endforeach; ?>
 </div>
 
-<?php include BASE_PATH . '/footer.php'; ?>
+<?php include '../footer.php'; ?>

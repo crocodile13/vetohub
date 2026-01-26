@@ -1,9 +1,5 @@
 <?php
 /**
- * Configuration requise
- */
-require_once __DIR__ . '/config.php';
-/**
  * Page À propos de VetoHub
  */
 
@@ -14,8 +10,8 @@ $breadcrumbs = [
     ['title' => 'À propos']
 ];
 
-include BASE_PATH . '/header.php';
-require_once BASE_PATH . '/components_helper.php';
+include 'header.php';
+require_once 'components_helper.php';
 
 // Configuration des cartes
 $aboutCards = [
@@ -80,4 +76,4 @@ $aboutCards = [
     <?php endforeach; ?>
 </div>
 
-<?php include BASE_PATH . '/footer.php'; ?>
+<?php include 'footer.php'; ?>

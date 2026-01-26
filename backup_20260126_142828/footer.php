@@ -3,7 +3,7 @@
  * Template footer commun à toutes les pages
  */
 require_once __DIR__ . '/config.php';
-require_once BASE_PATH . '/navigation_helper.php';
+require_once __DIR__ . '/navigation_helper.php';
 ?>
 <footer class="footer">
     <div style="margin-bottom: 15px;">

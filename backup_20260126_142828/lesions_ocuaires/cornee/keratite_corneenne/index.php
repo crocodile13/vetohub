@@ -1,9 +1,5 @@
 <?php
 /**
- * Configuration requise
- */
-require_once __DIR__ . '/../../../config.php';
-/**
  * Page Kératite Cornéenne
  */
 

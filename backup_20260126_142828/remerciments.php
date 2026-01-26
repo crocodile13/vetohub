@@ -1,9 +1,5 @@
 <?php
 /**
- * Configuration requise
- */
-require_once __DIR__ . '/config.php';
-/**
  * Page de remerciements
  */
 
@@ -14,8 +10,8 @@ $breadcrumbs = [
     ['title' => 'Remerciements']
 ];
 
-include BASE_PATH . '/header.php';
-require_once BASE_PATH . '/components_helper.php';
+include 'header.php';
+require_once 'components_helper.php';
 
 // Configuration des cartes de remerciements
 $thanksCards = [
@@ -39,4 +35,4 @@ $thanksCards = [
     <?php endforeach; ?>
 </div>
 
-<?php include BASE_PATH . '/footer.php'; ?>
+<?php include 'footer.php'; ?>

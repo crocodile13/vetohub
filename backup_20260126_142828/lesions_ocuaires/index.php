@@ -1,9 +1,5 @@
 <?php
 /**
- * Configuration requise
- */
-require_once __DIR__ . '/../config.php';
-/**
  * Page Lésions Oculaires avec schéma interactif
  */
 
@@ -11,8 +7,8 @@ $page_title = "Lésions Oculaires - VetoHub";
 $body_class = "structure-page";
 $load_schema = true;
 
-include BASE_PATH . '/header.php';
-require_once BASE_PATH . '/components_helper.php';
+include __DIR__ . '/../header.php';
+require_once __DIR__ . '/../components_helper.php';
 
 // Configuration des structures
 $structures = [
@@ -45,4 +41,4 @@ $structures = [
 
 <div id="tooltip" class="tooltip"></div>
 
-<?php include BASE_PATH . '/footer.php'; ?>
+<?php include __DIR__ . '/../footer.php'; ?>
